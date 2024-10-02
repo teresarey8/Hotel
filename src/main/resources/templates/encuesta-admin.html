@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Encuestas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="mt-5">Lista de Encuestas</h1>
+    <form action="#" th:action="@{/encuestas}" method="get">
+        <label for="nivelSatisfaccion">Filtrar por nivel de satisfacción:</label>
+        <select id="nivelSatisfaccion" name="nivelSatisfaccion">
+            <option value="">Todos</option>
+            <option value="Muy Satisfecho">Muy Satisfecho</option>
+            <option value="Satisfecho">Satisfecho</option>
+            <option value="Neutral">Neutral</option>
+            <option value="Insatisfecho">Insatisfecho</option>
+            <option value="Muy Insatisfecho">Muy Insatisfecho</option>
+        </select>
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nombre del Huésped</th>
+            <th>Fecha de Inicio de la Estancia</th>
+            <th>Nivel de Satisfacción General</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="encuesta : ${encuestas}">
+            <td th:text="${encuesta.nombreHuesped}"></td>
+            <td th:text="${#dates.format(encuesta.fechaInicioEstancia, 'yyyy-MM-dd')}"></td>
+            <td th:text="${encuesta.nivelSatisfaccion}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/" class="btn btn-primary">Volver</a>
+</div>
+</body>
+</html>
