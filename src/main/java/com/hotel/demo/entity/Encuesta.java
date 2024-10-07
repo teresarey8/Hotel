@@ -1,8 +1,10 @@
 package com.hotel.demo.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import java.awt.*;
+import org.springframework.cglib.core.Local;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -17,24 +19,24 @@ public class Encuesta {
     private String email;
     private Long edad;
     private Long telefono;
-    private Date FIestancia;
-    private Boolean Mvisita;
-    private Boolean Sutilizados;
-    private Boolean NSgeneral;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate fiestancia;
+    private String mvisita;
+    private String sutilizados;
+    private String nsgeneral;
     private String comentarios;
-    //para filtrar por nivel de satisfaccion
 
-    public Encuesta(Long id, String nombre,String apellidos,String email,Long edad,Long telefono,Date FIestancia,Boolean Mvisita,Boolean Sutilizados,Boolean NSgeneral,String comentarios ){
+    public Encuesta(Long id, String nombre,String apellidos,String email,Long edad,Long telefono,LocalDate fiestancia,String mvisita,String sutilizados,String nsgeneral,String comentarios ){
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
         this.edad = edad;
         this.telefono = telefono;
-        this.FIestancia = FIestancia;
-        this.Mvisita = Mvisita;
-        this.Sutilizados = Sutilizados;
-        this.NSgeneral = NSgeneral;
+        this.fiestancia = fiestancia;
+        this.mvisita = mvisita;
+        this.sutilizados = sutilizados;
+        this.nsgeneral = nsgeneral;
         this.comentarios = comentarios;
     }
     public Encuesta(){
@@ -88,36 +90,28 @@ public class Encuesta {
         this.telefono = telefono;
     }
 
-    public Date getFIestancia() {
-        return FIestancia;
+    public LocalDate getFiestancia() {
+        return fiestancia;
     }
 
-    public void setFIestancia(Date FIestancia) {
-        this.FIestancia = FIestancia;
+    public void setFiestancia(LocalDate fiestancia) {
+        this.fiestancia = fiestancia;
     }
 
-    public Boolean getMvisita() {
-        return Mvisita;
+    public String getMvisita() {
+        return mvisita;
     }
 
-    public void setMvisita(Boolean mvisita) {
-        Mvisita = mvisita;
+    public void setMvisita(String mvisita) {
+        this.mvisita = mvisita;
     }
 
-    public Boolean getSutilizados() {
-        return Sutilizados;
+    public String getSutilizados() {
+        return sutilizados;
     }
 
-    public void setSutilizados(Boolean sutilizados) {
-        Sutilizados = sutilizados;
-    }
-
-    public Boolean getNSgeneral() {
-        return NSgeneral;
-    }
-
-    public void setNSgeneral(Boolean NSgeneral) {
-        this.NSgeneral = NSgeneral;
+    public void setSutilizados(String sutilizados) {
+        this.sutilizados = sutilizados;
     }
 
     public String getComentarios() {
@@ -128,6 +122,13 @@ public class Encuesta {
         this.comentarios = comentarios;
     }
 
+    public String getNsgeneral() {
+        return nsgeneral;
+    }
+
+    public void setNsgeneral(String nsgeneral) {
+        this.nsgeneral = nsgeneral;
+    }
 
     @Override
     public String toString() {
@@ -138,10 +139,10 @@ public class Encuesta {
                 ", email='" + email + '\'' +
                 ", edad=" + edad +
                 ", telefono=" + telefono +
-                ", FIestancia=" + FIestancia +
-                ", Mvisita=" + Mvisita +
-                ", Sutilizados=" + Sutilizados +
-                ", NSgeneral=" + NSgeneral +
+                ", fiestancia=" + fiestancia +
+                ", mvisita=" + mvisita +
+                ", sutilizados=" + sutilizados +
+                ", nsgeneral=" + nsgeneral +
                 ", comentarios='" + comentarios + '\'' +
                 '}';
     }

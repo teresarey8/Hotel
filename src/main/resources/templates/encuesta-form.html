@@ -21,33 +21,43 @@
         </div>
 
         <div class="form-group">
-            <label for="apellidos">Apellidos <span class="error">*</span></label>
-            <input type="text" class="form-control" id="apellidos" name="apellidos" minlength="2" />
+            <label for="apellidos">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" name="apellidos" th:field="*{apellidos}" minlength="2" />
+            <span th:if="${#fields.hasErrors('apellidos')}" th:errors="*{apellidos}"></span>
+
         </div>
 
         <div class="form-group">
-            <label for="email">Email <span class="error">*</span></label>
-            <input type="text" class="form-control" id="email" name="email" />
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" name="email" th:field="*{email}" />
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
         </div>
 
         <div class="form-group">
-            <label for="edad">Edad <span class="error">*</span></label>
-            <input type="number" class="form-control" id="edad" name="edad" min="18" />
+            <label for="edad">Edad </label>
+            <input type="number" class="form-control" id="edad" name="edad" min="18" th:field="*{edad}"/>
+            <span th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></span>
+
         </div>
 
         <div class="form-group">
-            <label for="telefono">Teléfono <span class="error">*</span></label>
-            <input type="text" class="form-control" id="telefono" name="telefono" />
+            <label for="telefono">Teléfono </label>
+            <input type="text" class="form-control" id="telefono" name="telefono" th:field="*{telefono}" />
+            <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
+
         </div>
 
         <div class="form-group">
-            <label for="FIestancia">Fecha de inicio de la estancia <span class="error">*</span></label>
-            <input type="date" class="form-control" id="FIestancia" name="FIestancia" />
+            <label for="fiestancia">Fecha de inicio de la estancia </label>
+            <input type="date" class="form-control" id="fiestancia" name="fiestancia" th:field="*{fiestancia}" />
+            <span th:if="${#fields.hasErrors('fiestancia')}" th:errors="*{fiestancia}"></span>
+
         </div>
 
         <div class="form-group">
-            <label for="Mvisita">Motivo de la visita <span class="error">*</span></label>
-            <select class="form-control" id="Mvisita" name="Mvisita">
+            <label for="Mvisita">Motivo de la visita </label>
+            <select class="form-control" id="Mvisita" name="Mvisita" th:field="*{mvisita}" >
                 <option value="" selected disabled>Seleccione una opción</option>
                 <option value="Trabajo">Trabajo</option>
                 <option value="Estudios">Estudios</option>
@@ -59,31 +69,31 @@
         <div class="form-group">
             <label>Servicios utilizados durante la estancia:</label>
             <div>
-                <label><input type="checkbox" name="servicios[]" value="Restaurante"> Restaurante</label><br>
-                <label><input type="checkbox" name="servicios[]" value="Gimnasio"> Gimnasio</label><br>
-                <label><input type="checkbox" name="servicios[]" value="Spa"> Spa</label><br>
-                <label><input type="checkbox" name="servicios[]" value="Piscina"> Piscina</label><br>
-                <label><input type="checkbox" name="servicios[]" value="Room service"> Room service</label>
+                <label><input type="checkbox" th:field="*{sutilizados}" value="Restaurante"> Restaurante</label><br>
+                <label><input type="checkbox" th:field="*{sutilizados}" value="Gimnasio"> Gimnasio</label><br>
+                <label><input type="checkbox" th:field="*{sutilizados}" value="Spa"> Spa</label><br>
+                <label><input type="checkbox" th:field="*{sutilizados}" value="Piscina"> Piscina</label><br>
+                <label><input type="checkbox" th:field="*{sutilizados}" value="Room service"> Room service</label>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Nivel de satisfacción general <span class="error">*</span></label>
+            <label>Nivel de satisfacción generaL</label>
             <div>
-                <label><input type="radio" name="satisfaccion" value="Muy satisfecho" /> Muy satisfecho</label><br>
-                <label><input type="radio" name="satisfaccion" value="Satisfecho" /> Satisfecho</label><br>
-                <label><input type="radio" name="satisfaccion" value="Neutral" /> Neutral</label><br>
-                <label><input type="radio" name="satisfaccion" value="Insatisfecho" /> Insatisfecho</label><br>
-                <label><input type="radio" name="satisfaccion" value="Muy insatisfecho" /> Muy insatisfecho</label>
+                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Muy satisfecho" /> Muy satisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Satisfecho" /> Satisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Neutral" /> Neutral</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Insatisfecho" /> Insatisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Muy insatisfecho" /> Muy insatisfecho</label>
             </div>
         </div>
 
         <div class="form-group">
             <label for="comentarios">Otros comentarios:</label>
-            <textarea class="form-control" id="comentarios" name="comentarios" rows="4"></textarea>
+            <textarea class="form-control" id="comentarios" name="comentarios" th:field="*{comentarios}" rows="4"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="submit" value="enviar" class="btn btn-primary">Enviar</button>
     </form>
 </div>
 

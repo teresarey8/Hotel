@@ -1,42 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Encuestas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Gestión de Encuestas</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <div class="container">
-    <h1 class="mt-5">Lista de Encuestas</h1>
-    <form action="#" th:action="@{/encuestas}" method="get">
-        <label for="nivelSatisfaccion">Filtrar por nivel de satisfacción:</label>
-        <select id="nivelSatisfaccion" name="nivelSatisfaccion">
-            <option value="">Todos</option>
-            <option value="Muy Satisfecho">Muy Satisfecho</option>
-            <option value="Satisfecho">Satisfecho</option>
-            <option value="Neutral">Neutral</option>
-            <option value="Insatisfecho">Insatisfecho</option>
-            <option value="Muy Insatisfecho">Muy Insatisfecho</option>
-        </select>
-        <button type="submit">Filtrar</button>
-    </form>
-
-    <table class="table">
+    <h1 class="mt-4">Gestión de Encuestas</h1>
+    <table class="table table-bordered mt-4">
         <thead>
         <tr>
             <th>Nombre del Huésped</th>
-            <th>Fecha de Inicio de la Estancia</th>
+            <th>Fecha de Inicio de Estancia</th>
             <th>Nivel de Satisfacción General</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="encuesta : ${encuestas}">
-            <td th:text="${encuesta.nombreHuesped}"></td>
-            <td th:text="${#dates.format(encuesta.fechaInicioEstancia, 'yyyy-MM-dd')}"></td>
-            <td th:text="${encuesta.nivelSatisfaccion}"></td>
+            <td th:text="${encuesta.nombre}"></td>
+            <td th:text="${encuesta.fiestancia}"></td>
+            <td th:text="${encuesta.nsgeneral}"></td>
+            <td>
+                <a th:href="@{/admin/ver/{id}(id=${encuesta.id})}" class="btn btn-info">Ver</a>
+                <a th:href="@{/admin/editar/{id}(id=${encuesta.id})}" class="btn btn-warning">Editar</a>
+                <form th:action="@{/admin/borrar/{id}(id=${encuesta.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que deseas borrar esta encuesta?');">Borrar</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
-    <a href="/" class="btn btn-primary">Volver</a>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

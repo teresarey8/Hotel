@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Editar Encuesta</title>
+</head>
+<body>
+<h1>Editar Encuesta</h1>
+<form th:action="@{/admin/editar/{id}(id=${encuesta.id})}" th:object="${encuesta}" method="post">
+  <label for="nombre">Nombre del Huésped:</label>
+  <input type="text" th:field="*{nombre}">
+  <br>
+
+  <label for="fiestancia">Fecha de Inicio de Estancia:</label>
+  <input type="date" th:field="*{fiestancia}" >
+  <br>
+
+  <label for="nivelSatisfaccion">Nivel de Satisfacción General:</label>
+  <input type="number" th:field="*{NSgeneral}"  min="1" max="5">
+  <br>
+
+  <button type="submit">Actualizar</button>
+  <a href="/admin">Cancelar</a>
+</form>
+
+<div th:if="${#fields.hasErrors()}">
+  <p>Error en el formulario. Verifique los campos.</p>
+</div>
+</body>
+</html>

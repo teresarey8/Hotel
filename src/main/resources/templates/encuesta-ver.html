@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Detalles de la Encuesta</title>
+</head>
+<body>
+<h1>Detalles de la Encuesta</h1>
+<p>Nombre del Huésped: <span th:text="${encuesta.nombre}"></span></p>
+<p>Fecha de Inicio de Estancia: <span th:text="${#dates.format(encuesta.fiestancia, 'dd/MM/yyyy')}"></span></p>
+<p>Nivel de Satisfacción General: <span th:text="${encuesta.nsgeneral}"></span></p>
+<a href="/admin">Volver a la lista</a>
+</body>
+</html>
