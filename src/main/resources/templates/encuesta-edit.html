@@ -5,25 +5,93 @@
 </head>
 <body>
 <h1>Editar Encuesta</h1>
-<form th:action="@{/admin/editar/{id}(id=${encuesta.id})}" th:object="${encuesta}" method="post">
-  <label for="nombre">Nombre del Huésped:</label>
-  <input type="text" th:field="*{nombre}">
-  <br>
+<form action="#" th:action="@{/admin/editar/{id}(id=${encuesta.id})}" th:object="${encuesta}" method="post">
+  <input type="hidden" th:field="*{id}" /> <!-- Campo oculto para el ID -->
 
-  <label for="fiestancia">Fecha de Inicio de Estancia:</label>
-  <input type="date" th:field="*{fiestancia}" >
-  <br>
+  <div>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" th:field="*{nombre}"  />
+    <div th:if="${#fields.hasErrors('nombre')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('nombre')}" th:text="${error}"></span>
+    </div>
+  </div>
 
-  <label for="nivelSatisfaccion">Nivel de Satisfacción General:</label>
-  <input type="number" th:field="*{NSgeneral}"  min="1" max="5">
-  <br>
+  <div>
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" th:field="*{apellidos}"  />
+    <div th:if="${#fields.hasErrors('apellidos')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('apellidos')}" th:text="${error}"></span>
+    </div>
+  </div>
 
-  <button type="submit">Actualizar</button>
-  <a href="/admin">Cancelar</a>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" th:field="*{email}"  />
+    <div th:if="${#fields.hasErrors('email')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('email')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" th:field="*{edad}"  />
+    <div th:if="${#fields.hasErrors('edad')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('edad')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="telefono">Teléfono:</label>
+    <input type="tel" id="telefono" th:field="*{telefono}"  />
+    <div th:if="${#fields.hasErrors('telefono')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('telefono')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="fiestancia">Fecha de Estancia:</label>
+    <input type="date" id="fiestancia" th:field="*{fiestancia}"  />
+    <div th:if="${#fields.hasErrors('fiestancia')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('fiestancia')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="mvisita">Método de Visita:</label>
+    <input type="text" id="mvisita" th:field="*{mvisita}"  />
+    <div th:if="${#fields.hasErrors('mvisita')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('mvisita')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="sutilizados">Servicios Utilizados:</label>
+    <input type="text" id="sutilizados" th:field="*{sutilizados}"  />
+    <div th:if="${#fields.hasErrors('sutilizados')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('sutilizados')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="nsgeneral">Calificación General:</label>
+    <input type="text" id="nsgeneral" th:field="*{nsgeneral}"  />
+    <div th:if="${#fields.hasErrors('nsgeneral')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('nsgeneral')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <label for="comentarios">Comentarios:</label>
+    <textarea id="comentarios" th:field="*{comentarios}"></textarea>
+    <div th:if="${#fields.hasErrors('comentarios')}" style="color:red;">
+      <span th:each="error : ${#fields.errors('comentarios')}" th:text="${error}"></span>
+    </div>
+  </div>
+
+  <div>
+    <button type="submit">Actualizar Encuesta</button>
+  </div>
 </form>
-
-<div th:if="${#fields.hasErrors()}">
-  <p>Error en el formulario. Verifique los campos.</p>
-</div>
+<a href="#" th:href="@{/admin/ver/{id}(id=${encuesta.id})}">Cancelar</a>
 </body>
 </html>

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import com.hotel.demo.repository.EncuestaRepository;
 import org.thymeleaf.model.IModel;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class EncuestaController {
@@ -54,10 +56,17 @@ public class EncuestaController {
     // Ver detalles de la encuesta
     @GetMapping("/admin/ver/{id}")
     public String verEncuesta(@PathVariable Long id, Model model) {
-        Encuesta encuesta = encuestaRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Encuesta no encontrada con id: " + id));
-        model.addAttribute("encuesta", encuesta);
-        return "encuesta-ver"; // Crea una plantilla para mostrar los detalles de la encuesta
+        Optional<Encuesta> optionalEncuesta = encuestaRepository.findById(id);
+
+        if (optionalEncuesta.isPresent()) {
+            Encuesta encuesta = optionalEncuesta.get();
+            model.addAttribute("encuesta", encuesta);
+            return "encuesta-ver";
+        } else {
+            // Manejo del caso en que la encuesta no se encuentra
+            model.addAttribute("errorMessage", "Encuesta no encontrada");
+            return "error"; // Puedes redirigir a una página de error o a la lista de encuestas
+        }
     }
 
     // Mostrar el formulario de edición
