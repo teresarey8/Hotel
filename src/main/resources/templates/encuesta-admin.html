@@ -32,7 +32,21 @@
         </tbody>
     </table>
 </div>
+<h2>Estadísticas</h2>
+<p>Número total de encuestas recibidas: <span th:text="${totalEncuestas}"></span></p>
+<p>Promedio de edad de los encuestados: <span th:text="${promedioEdad}"></span></p>
+<h3>Distribución de niveles de satisfacción</h3>
+<ul>
+    <li th:each="nivel, iter : ${nsgeneral}">
+        <span th:text="${nivel}"></span>:
+        <span th:text="${distribucionSatisfaccion[iter.index]}"></span>%
+    </li>
+</ul>
+<!-- th:each="nivel, iter : ${nsgeneral}": Esto recorre la lista de niveles de satisfacción (nsgeneral), donde nivel es cada uno de los nombres ("Muy insatisfecho", "Insatisfecho", etc.) y iter.index es el índice actual del bucle (para acceder a distribucionSatisfaccion en el mismo orden).
 
+<span th:text="${nivel}"></span>: Muestra el nombre de cada nivel de satisfacción (en lugar de "Nivel 1", "Nivel 2", etc.)
+
+<span th:text="${distribucionSatisfaccion[iter.index]}"></span>: Muestra el porcentaje de satisfacción correspondiente a ese nivel.-->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

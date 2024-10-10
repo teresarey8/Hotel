@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface EncuestaRepository extends JpaRepository<Encuesta, Long> {
-
+    List<Encuesta> findByNsgeneral(String nsgeneral);
 }

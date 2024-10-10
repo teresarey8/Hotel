@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name="encuestas")
 public class Encuesta {
     @Id //Esta anotación especifica que este campo va a ser la clave principal de la tabla en la base de datos
-    @GeneratedValue(strategy = GenerationType.IDENTITY)     //Esta anotación especifica que la clave primaria sea "auto-increment"
+    @GeneratedValue(strategy = GenerationType.IDENTITY)     //Esta anotación especifica que la clave primaria(id) sea "auto-increment"
     private Long id;
     private String nombre;
     private String apellidos;

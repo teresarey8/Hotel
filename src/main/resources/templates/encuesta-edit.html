@@ -49,7 +49,7 @@
   </div>
 
   <div>
-    <label for="fiestancia">Fecha de Estancia:</label>
+    <label for="fiestancia">Fecha de inicio de estancia:</label>
     <input type="date" id="fiestancia" th:field="*{fiestancia}"  />
     <div th:if="${#fields.hasErrors('fiestancia')}" style="color:red;">
       <span th:each="error : ${#fields.errors('fiestancia')}" th:text="${error}"></span>
@@ -57,7 +57,7 @@
   </div>
 
   <div>
-    <label for="mvisita">Método de Visita:</label>
+    <label for="mvisita">Motivo de Visita:</label>
     <input type="text" id="mvisita" th:field="*{mvisita}"  />
     <div th:if="${#fields.hasErrors('mvisita')}" style="color:red;">
       <span th:each="error : ${#fields.errors('mvisita')}" th:text="${error}"></span>
@@ -73,10 +73,13 @@
   </div>
 
   <div>
-    <label for="nsgeneral">Calificación General:</label>
-    <input type="text" id="nsgeneral" th:field="*{nsgeneral}"  />
-    <div th:if="${#fields.hasErrors('nsgeneral')}" style="color:red;">
-      <span th:each="error : ${#fields.errors('nsgeneral')}" th:text="${error}"></span>
+    <label>Nivel de satisfacción generaL</label>
+    <div>
+      <label><input type="radio" th:field="*{nsgeneral}"  value="Muy satisfecho" /> Muy satisfecho</label><br>
+      <label><input type="radio" th:field="*{nsgeneral}"  value="Satisfecho" /> Satisfecho</label><br>
+      <label><input type="radio" th:field="*{nsgeneral}"  value="Neutral" /> Neutral</label><br>
+      <label><input type="radio" th:field="*{nsgeneral}"  value="Insatisfecho" /> Insatisfecho</label><br>
+      <label><input type="radio" th:field="*{nsgeneral}"  value="Muy insatisfecho" /> Muy insatisfecho</label>
     </div>
   </div>
 

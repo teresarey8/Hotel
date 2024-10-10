@@ -7,48 +7,96 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.hotel.demo.repository.EncuestaRepository;
-import org.thymeleaf.model.IModel;
 
-import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
 public class EncuestaController {
     private EncuestaRepository encuestaRepository;
-    //mostrar el formulario de encuesta
-    public EncuestaController(EncuestaRepository repository){
+
+    // Constructor
+    public EncuestaController(EncuestaRepository repository) {
         this.encuestaRepository = repository;
     }
+
+    // Mostrar el formulario de encuesta
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model) {
         model.addAttribute("encuesta", new Encuesta());
         return "encuesta-form";
     }
-    //guarda la informacion en la base de datos
-    @PostMapping ("/")
-    public String insertarEncuesta(@Valid Encuesta encuesta, BindingResult bindingResult){
-        //Si ha habido errores de validación volvemos a mostrar el formulario
-        if (bindingResult.hasErrors()){
+
+    // Guarda la información en la base de datos
+    @PostMapping("/")
+    public String insertarEncuesta(@Valid Encuesta encuesta, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             return "encuesta-form";
         }
-        //Si no ha habido errores de validación insertamos los datos en la BD
         encuestaRepository.save(encuesta);
-        System.out.println("Encuesta guardada: "+encuesta);
-        //aqui te deberia mandar a otro sitio(cuando has finalizado el formulario y esta correcto)
+        System.out.println("Encuesta guardada: " + encuesta);
         return "redirect:/admin";
     }
 
-    //vista de administrador que muestra el listado d las encuestas
+    // Vista de administrador que muestra el listado de las encuestas
     @GetMapping("/admin")
-    public String findAll(Model model){
-            List<Encuesta> encuestas = encuestaRepository.findAll(); //Metodo para obtener todas las encuestas
-            model.addAttribute("encuestas", encuestas);
-            return "encuesta-admin"; // nombre del archivo HTML sin la extensión
+    public String findAll(@RequestParam(required = false) String nsgeneral, Model model) {
+        List<Encuesta> encuestas;
+
+        if (nsgeneral != null && !nsgeneral.isEmpty()) {
+            encuestas = encuestaRepository.findByNsgeneral(nsgeneral);
+        } else {
+            encuestas = encuestaRepository.findAll();
+        }
+
+        // Calcular estadísticass
+        int totalEncuestas = encuestas.size();
+        double promedioEdad = encuestas.stream()
+                .filter(encuesta -> encuesta.getEdad() != null) // Filtra encuestas con edad no nula, porque si no me da error
+                .mapToLong(Encuesta::getEdad)//map devuelve un numero tipo long
+                .average()
+                .orElse(0);
+        //array con los niveles de satisfaccion
+        String[] nivelesSatisfaccion = {
+                "Muy insatisfecho", "Insatisfecho", "Neutral", "Satisfecho", "Muy satisfecho"
+        };
+        // array del numero de niveles que hay
+        double[] distribucionSatisfaccion = new double[nivelesSatisfaccion.length];
+
+        // Contar los niveles de satisfacción
+        for (Encuesta encuesta : encuestas) {
+            String nivel = encuesta.getNsgeneral();
+            for (int i = 0; i < nivelesSatisfaccion.length; i++) {
+                if (nivelesSatisfaccion[i].equals(nivel)) {
+                    distribucionSatisfaccion[i]++;
+                }
+            }
+        }
+
+        // Calcular porcentajes, podria haber metido un if, pero asi esta mejor.
+        for (int i = 0; i < distribucionSatisfaccion.length; i++) {
+            distribucionSatisfaccion[i] = totalEncuestas > 0
+                    ? (distribucionSatisfaccion[i] * 100.0 / totalEncuestas) : 0;
+        }
+
+        // Agregar los atributos al modelo
+        model.addAttribute("encuestas", encuestas);
+        //con esto conseguimos que se vean los niveles de satisfaccion en las estadistica
+        model.addAttribute("nsgeneral", nivelesSatisfaccion);
+        model.addAttribute("totalEncuestas", totalEncuestas);
+        model.addAttribute("promedioEdad", promedioEdad);
+        model.addAttribute("distribucionSatisfaccion", distribucionSatisfaccion);
+
+        //Uso de un Map: Se utiliza un HashMap para contar las ocurrencias de cada nivel de satisfacción sin necesidad de un switch.
+        //Cálculo de Distribución: El cálculo de la distribución de niveles de satisfacción se realiza a partir del Map, obteniendo el conteo de cada nivel y calculando el porcentaje correspondiente.
+
+        return "encuesta-admin"; // Nombre del archivo HTML sin la extensión por dios
     }
 
-    @PostMapping("/admin/del/{id}")
-    public String borrarEncuesta(@PathVariable Long id) {
+    @PostMapping("/admin/borrar/{id}")
+    public String borrarEncuesta(@PathVariable("id") Long id) {
         encuestaRepository.deleteById(id);
         return "redirect:/admin"; // Redirigir a la lista de encuestas después de borrar
     }
@@ -63,7 +111,6 @@ public class EncuestaController {
             model.addAttribute("encuesta", encuesta);
             return "encuesta-ver";
         } else {
-            // Manejo del caso en que la encuesta no se encuentra
             model.addAttribute("errorMessage", "Encuesta no encontrada");
             return "error"; // Puedes redirigir a una página de error o a la lista de encuestas
         }
@@ -88,10 +135,4 @@ public class EncuestaController {
         encuestaRepository.save(encuesta);
         return "redirect:/admin"; // Redirigir a la lista de encuestas después de actualizar
     }
-
-
-
-
 }
-
-

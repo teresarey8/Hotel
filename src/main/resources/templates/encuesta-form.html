@@ -58,7 +58,7 @@
         <div class="form-group">
             <label for="Mvisita">Motivo de la visita </label>
             <select class="form-control" id="Mvisita" name="Mvisita" th:field="*{mvisita}" >
-                <option value="" selected disabled>Seleccione una opción</option>
+                <option value="" selected >Seleccione una opción</option>
                 <option value="Trabajo">Trabajo</option>
                 <option value="Estudios">Estudios</option>
                 <option value="Turismo">Turismo</option>
@@ -80,11 +80,11 @@
         <div class="form-group">
             <label>Nivel de satisfacción generaL</label>
             <div>
-                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Muy satisfecho" /> Muy satisfecho</label><br>
-                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Satisfecho" /> Satisfecho</label><br>
-                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Neutral" /> Neutral</label><br>
-                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Insatisfecho" /> Insatisfecho</label><br>
-                <label><input type="radio" th:field="*{nsgeneral}" name="satisfaccion" value="Muy insatisfecho" /> Muy insatisfecho</label>
+                <label><input type="radio" th:field="*{nsgeneral}"  value="Muy satisfecho" /> Muy satisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}"  value="Satisfecho" /> Satisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}"  value="Neutral" /> Neutral</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}"  value="Insatisfecho" /> Insatisfecho</label><br>
+                <label><input type="radio" th:field="*{nsgeneral}"  value="Muy insatisfecho" /> Muy insatisfecho</label>
             </div>
         </div>
 
